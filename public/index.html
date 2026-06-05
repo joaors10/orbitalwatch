@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OrbitalWatch</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b0f1a;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #111a2e;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .card {
+      background: #16213e;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 8px;
+    }
+
+    .ok {
+      color: #4caf50;
+    }
+
+    .alert {
+      color: #ff5252;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 15px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #2c3e50;
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>OrbitalWatch</h1>
+    <p>Satellite Monitoring System</p>
+  </header>
+
+  <div class="container">
+
+    <div class="card">
+      <h2>Sobre o projeto</h2>
+      <p>
+        O OrbitalWatch simula um sistema de monitoramento de satélites em órbita,
+        auxiliando na análise de status, temperatura e posição orbital.
+      </p>
+      <p>
+        <strong>ODS relacionado:</strong> ODS 9 - Indústria, Inovação e Infraestrutura
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Satélites em monitoramento</h2>
+
+      <table id="satTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Temperatura</th>
+            <th>Posição</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script>
+    async function loadData() {
+      const res = await fetch("/api/satellites");
+      const data = await res.json();
+
+      const tbody = document.querySelector("#satTable tbody");
+
+      data.satellites.forEach(sat => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+          <td>${sat.id}</td>
+          <td class="${sat.status === "ALERT" ? "alert" : "ok"}">
+            ${sat.status}
+          </td>
+          <td>${sat.temperature}°C</td>
+          <td>${sat.position}</td>
+        `;
+
+        tbody.appendChild(row);
+      });
+    }
+
+    loadData();
+  </script>
+
+</body>
+</html>
