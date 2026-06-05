@@ -19,7 +19,10 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Create deployment package
+        run: zip -r app.zip . -x "node_modules/*"
 
       - name: Azure Login
         uses: azure/login@v2
@@ -30,4 +33,4 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-          package: .
+          package: app.zip
