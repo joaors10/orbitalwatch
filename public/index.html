@@ -35,10 +35,12 @@
 
     .ok {
       color: #4caf50;
+      font-weight: bold;
     }
 
     .alert {
       color: #ff5252;
+      font-weight: bold;
     }
 
     table {
@@ -47,15 +49,22 @@
       border-collapse: collapse;
     }
 
-    th, td {
+    th,
+    td {
       padding: 10px;
       border-bottom: 1px solid #2c3e50;
       text-align: left;
+    }
+
+    h1,
+    h2 {
+      margin-top: 0;
     }
   </style>
 </head>
 
 <body>
+
   <header>
     <h1>OrbitalWatch</h1>
     <p>Satellite Monitoring System</p>
@@ -65,12 +74,34 @@
 
     <div class="card">
       <h2>Sobre o projeto</h2>
+
       <p>
-        O OrbitalWatch simula um sistema de monitoramento de satélites em órbita,
-        auxiliando na análise de status, temperatura e posição orbital.
+        O OrbitalWatch é uma plataforma de monitoramento de satélites que simula
+        o acompanhamento de ativos espaciais em órbita terrestre. A solução permite
+        visualizar informações como status operacional, temperatura e posição orbital
+        dos satélites.
       </p>
+
+      <p>
+        A proposta está conectada à Indústria Espacial ao demonstrar como sistemas
+        em nuvem podem ser utilizados para centralizar e disponibilizar dados de
+        monitoramento de satélites, auxiliando operadores na identificação de falhas
+        e no acompanhamento de missões espaciais.
+      </p>
+
       <p>
         <strong>ODS relacionado:</strong> ODS 9 - Indústria, Inovação e Infraestrutura
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Arquitetura da solução</h2>
+
+      <p>
+        A aplicação está hospedada no Microsoft Azure App Service e utiliza
+        GitHub Actions para realizar deploy contínuo. O monitoramento da
+        aplicação é realizado por serviços nativos do Azure, permitindo
+        acompanhar disponibilidade e desempenho do sistema.
       </p>
     </div>
 
@@ -86,7 +117,43 @@
             <th>Posição</th>
           </tr>
         </thead>
+
         <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>Equipe</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>RM</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>João Rodrigo Solano Nogueira</td>
+            <td>RM551319</td>
+          </tr>
+
+          <tr>
+            <td>Julia Amorim Bezerra</td>
+            <td>RM99609</td>
+          </tr>
+
+          <tr>
+            <td>Lana Giulia Auada Leite</td>
+            <td>RM551143</td>
+          </tr>
+
+          <tr>
+            <td>Tony Willian da Silva Segalin</td>
+            <td>RM550667</td>
+          </tr>
+        </tbody>
       </table>
     </div>
 
@@ -99,7 +166,7 @@
 
       const tbody = document.querySelector("#satTable tbody");
 
-      data.satellites.forEach(sat => {
+      data.satellites.forEach((sat) => {
         const row = document.createElement("tr");
 
         row.innerHTML = `
